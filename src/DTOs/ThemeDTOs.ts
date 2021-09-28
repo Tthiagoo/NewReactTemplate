@@ -1,4 +1,3 @@
-import { DefaultTheme } from 'styled-components'
 import { Theme } from '../styles/styled'
 
 export interface ITheme {
