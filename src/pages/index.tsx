@@ -9,7 +9,8 @@ import {
   MyButton,
   TextBox,
   LoginFooterBox,
-  InputLogin
+  InputLogin,
+  MyThemeComponent
 } from '../styles/pages/Home'
 
 const Home: React.FC = () => {
@@ -24,7 +25,7 @@ const Home: React.FC = () => {
         aprendizado e contamos com você para que essa jornada seja leve,
         produtiva e inspiradora.
       </TextBox>
-
+      <MyThemeComponent>ALOSSsssSSSO</MyThemeComponent>
       <LoginBox>
         <Box
           width="100%"

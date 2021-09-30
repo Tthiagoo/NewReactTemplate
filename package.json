@@ -14,10 +14,10 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/styled-engine-sc": "^5.0.0-alpha.11",
     "@material-ui/styles": "^4.11.4",
-    "@mui/material": "^5.0.1",
+    "@mui/material": "^5.0.2",
     "next": "9.5.2",
     "next-images": "^1.4.1",
-    "react": "16.13.1",
+    "react": "^17.0.2",
     "react-dom": "16.13.1",
     "styled-components": "^5.3.1"
   },

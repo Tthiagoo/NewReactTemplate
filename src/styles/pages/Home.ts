@@ -1,6 +1,14 @@
+// import { ThemeOptions } from '@mui/material/styles'
 import { styled as MuiStyled } from '@material-ui/styles'
 import { Button, Box, TextField } from '@material-ui/core'
 import imageLogin from '../../assets/imageLogin.png'
+import styled from 'styled-components'
+import { styledCustom } from '../../theme/themeMui'
+
+export const MyThemeComponent = styledCustom('div')(({ theme }) => ({
+  backgroundColor: theme.status.danger
+}))
+
 export const MyButton = MuiStyled(Button)({
   background: 'linear-gradient(45deg, #0943F9 20%, #0990F9 70%)',
   border: 0,
@@ -73,7 +81,7 @@ export const InputLogin = MuiStyled(TextField)({
     borderBottomColor: 'green'
   }
 })
-/* export const Main = styled.div`
+export const MainStyled = styled.div`
   width: 100vw;
   height: 100vh;
 
@@ -93,4 +101,4 @@ export const InputLogin = MuiStyled(TextField)({
     font-size: 24px;
     line-height: 32px;
   }
-` */
+`
