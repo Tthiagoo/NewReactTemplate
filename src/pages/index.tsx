@@ -1,4 +1,5 @@
 import { Box } from '@material-ui/core'
+import { useRouter } from 'next/router'
 import React from 'react'
 import stefLogo from '../assets/stef.png'
 import {
@@ -12,6 +13,7 @@ import {
   InputLogin,
   MyThemeComponent
 } from '../styles/pages/Home'
+const { asPath } = useRouter()
 
 const Home: React.FC = () => {
   return (
