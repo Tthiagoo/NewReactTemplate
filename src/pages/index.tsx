@@ -1,5 +1,9 @@
 import { Box } from '@material-ui/core'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import Link from 'next/link'
+import { GetStaticProps } from 'next'
 import React from 'react'
 import stefLogo from '../assets/stef.png'
 import {
@@ -10,24 +14,39 @@ import {
   MyButton,
   TextBox,
   LoginFooterBox,
-  InputLogin,
-  MyThemeComponent
+  InputLogin
 } from '../styles/pages/Home'
-const { asPath } = useRouter()
+
+export const getStaticProps: GetStaticProps = async ({
+  locale: staticLocale
+}) => {
+  console.log(staticLocale)
+  return {
+    props: {
+      ...(await serverSideTranslations(staticLocale, ['home']))
+    }
+  }
+}
 
 const Home: React.FC = () => {
+  const { asPath } = useRouter()
+  // serverSideTranslations(locale, ['home'])
+  const { t } = useTranslation()
+
   return (
     <Main>
       <Header>
         <img src={stefLogo} style={{ width: '30%', height: '55%' }} />
       </Header>
-      <TextBox>
-        Essa é uma oportunidade para conhecer pessoas, desenvolver habilidades e
-        compartilhar experiências. Saiba que este processo envolve muito
-        aprendizado e contamos com você para que essa jornada seja leve,
-        produtiva e inspiradora.
-      </TextBox>
-      <MyThemeComponent>ALOSSsssSSSO</MyThemeComponent>
+      {t('home:bem_vindo')}
+      <Link href={asPath} locale="en">
+        en
+      </Link>
+      <Link href={asPath} locale="pt-BR">
+        Br
+      </Link>
+      <TextBox>{t('home:introducao')}</TextBox>
+
       <LoginBox>
         <Box
           width="100%"
