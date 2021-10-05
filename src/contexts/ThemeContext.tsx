@@ -3,7 +3,7 @@
 import React, { createContext, useContext, ReactNode } from 'react'
 import { ThemeProvider } from 'styled-components'
 import { IThemeContextData } from '../DTOs/ThemeDTOs'
-import { useToggleTheme } from '../hooks/useToogle'
+import { useToggleTheme } from '../hooks/useToogleTheme'
 type Props = {
   children: ReactNode
 }

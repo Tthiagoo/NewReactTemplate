@@ -4,7 +4,6 @@ import { Button, Box, TextField } from '@material-ui/core'
 import imageLogin from '../../assets/imageLogin.png'
 import styled from 'styled-components'
 import { styledCustom } from '../../theme/themeMui'
-
 export const MyThemeComponent = styledCustom('div')(({ theme }) => ({
   backgroundColor: theme.status.danger
 }))
@@ -22,6 +21,8 @@ export const MyButton = MuiStyled(Button)({
 
 export const Main = MuiStyled(Box)({
   height: '100vh',
+  width: '100%',
+  maxWidth: '100%',
   display: 'flex',
   justifyContent: 'start',
   alignItems: 'center',
@@ -37,7 +38,6 @@ export const Header = MuiStyled(Box)({
   width: '100%',
   height: '12%'
 })
-
 export const TextBox = MuiStyled(Box)({
   display: 'flex',
   justifyContent: 'center',
@@ -65,6 +65,14 @@ export const InputBox = MuiStyled(Box)({
   height: '40%',
   marginBottom: '20px'
 })
+
+export const FormLogin = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 40%;
+  margin-bottom: 20px;
+`
 
 export const LoginFooterBox = MuiStyled(Box)({
   display: 'flex',

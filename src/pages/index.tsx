@@ -1,26 +1,26 @@
 import { Box } from '@material-ui/core'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import Link from 'next/link'
 import { GetStaticProps } from 'next'
 import React from 'react'
 import stefLogo from '../assets/stef.png'
 import {
   LoginBox,
   Header,
-  InputBox,
   Main,
   MyButton,
   TextBox,
   LoginFooterBox,
-  InputLogin
+  InputLogin,
+  FormLogin
 } from '../styles/pages/Home'
+import LanguageChange from '../shared/LanguageChange'
+import { useForm } from 'react-hook-form'
+import { useAuth } from '../contexts/AuthContext'
 
 export const getStaticProps: GetStaticProps = async ({
   locale: staticLocale
 }) => {
-  console.log(staticLocale)
   return {
     props: {
       ...(await serverSideTranslations(staticLocale, ['home']))
@@ -29,22 +29,24 @@ export const getStaticProps: GetStaticProps = async ({
 }
 
 const Home: React.FC = () => {
-  const { asPath } = useRouter()
-  // serverSideTranslations(locale, ['home'])
   const { t } = useTranslation()
-
+  const { register, handleSubmit } = useForm()
+  const { signIn } = useAuth()
   return (
     <Main>
       <Header>
-        <img src={stefLogo} style={{ width: '30%', height: '55%' }} />
+        <img
+          src={stefLogo}
+          style={{
+            width: '30%',
+            height: '55%',
+            margin: '0 auto',
+            display: 'block'
+          }}
+        />
+
+        <LanguageChange />
       </Header>
-      {t('home:bem_vindo')}
-      <Link href={asPath} locale="en">
-        en
-      </Link>
-      <Link href={asPath} locale="pt-BR">
-        Br
-      </Link>
       <TextBox>{t('home:introducao')}</TextBox>
 
       <LoginBox>
@@ -58,23 +60,24 @@ const Home: React.FC = () => {
         >
           Login
         </Box>
-        <InputBox>
+
+        <FormLogin>
           <InputLogin
             id="filled-basic"
-            label="Email Corporativo"
+            label={t('home:email_corporativo')}
             variant="outlined"
           />
           <InputLogin
             type="password"
             id="filled-basic"
-            label="Password"
+            label={t('home:senha')}
             variant="outlined"
           />
-        </InputBox>
+        </FormLogin>
         <MyButton>Login</MyButton>
         <LoginFooterBox>
-          <b>Esqueci Senha</b>
-          <b>Cadastrar</b>
+          <b>{t('home:esqueci_senha')}</b>
+          <b>{t('home:cadastrar')}</b>
         </LoginFooterBox>
       </LoginBox>
     </Main>
