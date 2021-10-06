@@ -48,15 +48,15 @@ export const TextBox = MuiStyled(Box)({
   height: '12%'
 })
 
-export const LoginBox = MuiStyled(Box)({
-  display: 'flex',
-  flexDirection: 'column',
-  padding: '30px',
-  width: '35%',
-  height: '50%',
-  backgroundColor: 'white',
-  borderRadius: '5px'
-})
+export const LoginBox = styled.form`
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  width: 35%;
+  height: 50%;
+  background-color: white;
+  border-radius: 5px;
+`
 
 export const InputBox = MuiStyled(Box)({
   display: 'flex',

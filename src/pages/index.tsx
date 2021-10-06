@@ -32,6 +32,12 @@ const Home: React.FC = () => {
   const { t } = useTranslation()
   const { register, handleSubmit } = useForm()
   const { signIn } = useAuth()
+
+  async function handleSignIn(data) {
+    console.log(data)
+    await signIn(data)
+  }
+
   return (
     <Main>
       <Header>
@@ -49,7 +55,7 @@ const Home: React.FC = () => {
       </Header>
       <TextBox>{t('home:introducao')}</TextBox>
 
-      <LoginBox>
+      <LoginBox onSubmit={handleSubmit(handleSignIn)}>
         <Box
           width="100%"
           height="10%"
@@ -63,18 +69,20 @@ const Home: React.FC = () => {
 
         <FormLogin>
           <InputLogin
+            {...register('email')}
             id="filled-basic"
             label={t('home:email_corporativo')}
             variant="outlined"
           />
           <InputLogin
+            {...register('password')}
             type="password"
             id="filled-basic"
             label={t('home:senha')}
             variant="outlined"
           />
         </FormLogin>
-        <MyButton>Login</MyButton>
+        <MyButton type="submit">Login</MyButton>
         <LoginFooterBox>
           <b>{t('home:esqueci_senha')}</b>
           <b>{t('home:cadastrar')}</b>

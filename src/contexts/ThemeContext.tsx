@@ -12,10 +12,6 @@ const ThemeContext = createContext<IThemeContextData>({} as IThemeContextData)
 
 export const useTheme = () => useContext(ThemeContext)
 
-export function useThemeContext(): IThemeContextData {
-  return useContext(ThemeContext)
-}
-
 export const CustomThemeProvider: React.FC = ({
   children
 }: Props): JSX.Element => {

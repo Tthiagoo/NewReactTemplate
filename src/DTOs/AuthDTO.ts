@@ -7,8 +7,8 @@ export type IUser = {
 export interface IAuthContext {
   authenticated: boolean
   user: IUser
-  token: string
-  signIn: (email, password) => Promise<void>
+
+  signIn: (data: ISignInData) => void
 }
 export interface ISignInRequestData {
   email: string

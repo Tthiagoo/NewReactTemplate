@@ -5,10 +5,22 @@ import { v4 as uuid } from 'uuid'
 const delay = (amount = 750) =>
   new Promise(resolve => setTimeout(resolve, amount))
 
-export async function signInResquest(data: ISignInRequestData) {
-  await delay()
+export function signInResquest(data: ISignInRequestData) {
+  delay()
+
   return {
-    token: 'adadde2323',
+    token: 'cookieeee',
+    user: {
+      name: 'Thiago Pereira',
+      email: 'thiago.game@hotmail.com',
+      avatar: 'https://github.com/tthiagoo.png'
+    }
+  }
+}
+export async function recoverUserInformation() {
+  await delay()
+
+  return {
     user: {
       name: 'Thiago Pereira',
       email: 'thiago.game@hotmail.com',
