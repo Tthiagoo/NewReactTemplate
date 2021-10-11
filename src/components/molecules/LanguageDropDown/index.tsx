@@ -11,7 +11,7 @@ import {
   FlagAle,
   FlagChi,
   FlagFra
-} from '../FlagsCountry'
+} from '../../atoms/FlagsCountry'
 
 const ITEM_HEIGHT = 48
 

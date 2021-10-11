@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React from 'react'
-import BrIcon from '../../assets/brasil.png'
-import EuaIcon from '../../assets/estados-unidos.png'
-import ChiIcon from '../../assets/china.png'
-import AleIcon from '../../assets/alemanha.png'
-import FraIcon from '../../assets/franca.png'
-import EspIcon from '../../assets/espanha.png'
+import BrIcon from '../../../assets/brasil.png'
+import EuaIcon from '../../../assets/estados-unidos.png'
+import ChiIcon from '../../../assets/china.png'
+import AleIcon from '../../../assets/alemanha.png'
+import FraIcon from '../../../assets/franca.png'
+import EspIcon from '../../../assets/espanha.png'
 
 export const FlagBr = () => {
   return (

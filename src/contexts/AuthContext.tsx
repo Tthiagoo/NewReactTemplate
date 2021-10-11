@@ -36,7 +36,7 @@ export default function AuthProvider({ children }): JSX.Element {
     })
 
     console.log(email, password)
-    Router.push('/dashboard')
+    Router.push('/perfil')
   }
   return (
     <AuthContext.Provider value={{ authenticated, signIn, user }}>
