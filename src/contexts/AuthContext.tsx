@@ -4,43 +4,46 @@ import { parseCookies, setCookie } from 'nookies'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { IAuthContext, ISignInData, IUser } from '../DTOs/AuthDTO'
 import { recoverUserInformation, signInResquest } from '../services/auth'
+import { api } from '../services/api'
 const AuthContext = createContext({} as IAuthContext)
 
-export const useAuth = () => useContext(AuthContext)
-
-export default function AuthProvider({ children }): JSX.Element {
+export function AuthProvider({ children }) {
   const [user, setUser] = useState<IUser | null>(null)
 
-  const authenticated = !!user
+  const isAuthenticated = !!user
 
   useEffect(() => {
     const { 'nextauth.token': token } = parseCookies()
 
     if (token) {
-      console.log('revoerrr')
       recoverUserInformation().then(response => {
         setUser(response.user)
       })
-    } else {
-      console.log('nao chamou o recover')
     }
   }, [])
 
-  const signIn = ({ email, password }: ISignInData) => {
-    const { token, user } = signInResquest({ email, password })
-    console.log('chamou')
+  async function signIn({ email, password }: ISignInData) {
+    const { token, user } = await signInResquest({
+      email,
+      password
+    })
 
-    setUser(user)
     setCookie(undefined, 'nextauth.token', token, {
       maxAge: 60 * 60 * 1 // 1 hour
     })
 
-    console.log(email, password)
+    api.defaults.headers.Authorization = `Bearer ${token}`
+
+    setUser(user)
+
     Router.push('/dashboard')
   }
+
   return (
-    <AuthContext.Provider value={{ authenticated, signIn, user }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, signIn }}>
       {children}
     </AuthContext.Provider>
   )
 }
+
+export const useAuth = () => useContext(AuthContext)
