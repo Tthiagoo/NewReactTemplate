@@ -3,6 +3,7 @@ import Router from 'next/router'
 import { parseCookies, setCookie } from 'nookies'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { IAuthContext, ISignInData, IUser } from '../DTOs/AuthDTO'
+import api from '../services/api'
 import { recoverUserInformation, signInResquest } from '../services/auth'
 const AuthContext = createContext({} as IAuthContext)
 
@@ -17,7 +18,7 @@ export default function AuthProvider({ children }): JSX.Element {
     const { 'nextauth.token': token } = parseCookies()
 
     if (token) {
-      console.log('revoerrr')
+      console.log('recoverrr')
       recoverUserInformation().then(response => {
         setUser(response.user)
       })
@@ -26,17 +27,25 @@ export default function AuthProvider({ children }): JSX.Element {
     }
   }, [])
 
-  const signIn = ({ email, password }: ISignInData) => {
-    const { token, user } = signInResquest({ email, password })
-    console.log('chamou')
+  async function signIn({ email, password }: ISignInData) {
+    try {
+      const { token, user } = await signInResquest({
+        email,
+        password
+      })
 
-    setUser(user)
-    setCookie(undefined, 'nextauth.token', token, {
-      maxAge: 60 * 60 * 1 // 1 hour
-    })
+      setCookie(undefined, 'nextauth.token', token, {
+        maxAge: 60 * 60 * 1 // 1 hour
+      })
 
-    console.log(email, password)
-    Router.push('/perfil')
+      api.defaults.headers.Authorization = `Bearer ${token}`
+
+      setUser(user)
+
+      Router.push('/profile')
+    } catch (error) {
+      alert(error)
+    }
   }
   return (
     <AuthContext.Provider value={{ authenticated, signIn, user }}>
