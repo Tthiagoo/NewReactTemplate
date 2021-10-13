@@ -3,7 +3,7 @@ import Router from 'next/router'
 import { parseCookies, setCookie } from 'nookies'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { IAuthContext, ISignInData, IUser } from '../DTOs/AuthDTO'
-import api from '../services/api'
+import { api } from '../services/api'
 import { recoverUserInformation, signInResquest } from '../services/auth'
 const AuthContext = createContext({} as IAuthContext)
 
