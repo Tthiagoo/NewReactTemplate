@@ -2,6 +2,7 @@ import { Box } from '@material-ui/core'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { GetStaticProps } from 'next'
+import { useCollection } from 'react-firebase-hooks/firestore'
 import React from 'react'
 import stefLogo from '../assets/stef.png'
 import {
@@ -17,6 +18,8 @@ import {
 import LanguageChange from '../shared/LanguageChange'
 import { useForm } from 'react-hook-form'
 import { useAuth } from '../contexts/AuthContext'
+import { db } from '../config/firebaseClient'
+import { collection, getFirestore } from 'firebase/firestore'
 
 export const getStaticProps: GetStaticProps = async ({
   locale: staticLocale
@@ -32,6 +35,14 @@ const Home: React.FC = () => {
   const { t } = useTranslation()
   const { register, handleSubmit } = useForm()
   const { signIn } = useAuth()
+
+  const [users, loading, error] = useCollection(collection(db, 'users'), {
+    snapshotListenOptions: { includeMetadataChanges: true }
+  })
+
+  if (!loading && users) {
+    users.docs.map(doc => console.log(doc.data()))
+  }
 
   async function handleSignIn(data) {
     console.log(data)
