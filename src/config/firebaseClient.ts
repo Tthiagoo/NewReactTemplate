@@ -1,28 +1,29 @@
 import 'firebase/firestore'
 import 'firebase/analytics'
-import { initializeApp, getApps } from 'firebase/app'
+import { initializeApp, getApps, deleteApp, getApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
 
 export const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY_ID,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  authDomain: `${process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID}.firebaseapp.com`,
-  databaseURL: `${process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID}.firebaseio.com`,
-  storageBucket: `${process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID}.appspot.com`,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+  apiKey: 'AIzaSyAnM3fORzbgO2NegLT8aOfJr4sWkhwfSdI',
+  authDomain: 'testefirebasereact-ddfda.firebaseapp.com',
+  projectId: 'testefirebasereact-ddfda',
+  storageBucket: 'testefirebasereact-ddfda.appspot.com',
+  messagingSenderId: '12319339968',
+  appId: '1:12319339968:web:139b67b7a2a76f24874425',
+  measurementId: 'G-BHS6WV69N2'
 }
 
-export const app = initializeApp(firebaseConfig)
+if (typeof window !== 'undefined' && !getApps().length) {
+  console.log('caiu aqui')
 
-export const db = getFirestore(app)
-
-/*if (typeof window !== 'undefined' && !getApps().length) {
-  const app = initializeApp(firebaseConfig)
+  initializeApp(firebaseConfig)
+} else {
+  getApp()
 }
-if (process.env.FIREBASE_CLIENT_EMAIL && !getApps().length) {
+/*if (process.env.FIREBASE_CLIENT_EMAIL && !getApps().length) {
   firebase.initializeApp(firebaseConfig)
 }
+*/
+const app = getApp()
 
-export default firebase*/
+export const db = getFirestore(app)
