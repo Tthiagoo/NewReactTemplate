@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { GetStaticProps } from 'next'
 import { useCollection } from 'react-firebase-hooks/firestore'
-import React from 'react'
+import React, { useState } from 'react'
 import stefLogo from '../assets/stef.png'
 import {
   LoginBox,
@@ -19,7 +19,7 @@ import LanguageChange from '../shared/LanguageChange'
 import { useForm } from 'react-hook-form'
 import { useAuth } from '../contexts/AuthContext'
 import { db } from '../config/firebaseClient'
-import { collection, getFirestore } from 'firebase/firestore'
+import { addDoc, collection, getFirestore } from 'firebase/firestore'
 
 export const getStaticProps: GetStaticProps = async ({
   locale: staticLocale
@@ -36,12 +36,21 @@ const Home: React.FC = () => {
   const { register, handleSubmit } = useForm()
   const { signIn } = useAuth()
 
+  const [name, setName] = useState('')
+  const [age, setAge] = useState('')
+
   const [users, loading, error] = useCollection(collection(db, 'users'), {
     snapshotListenOptions: { includeMetadataChanges: true }
   })
 
   if (!loading && users) {
     users.docs.map(doc => console.log(doc.data()))
+  }
+
+  const onSubmit = async () => {
+    const collectionRef = collection(db, 'users')
+    const docRef = await addDoc(collectionRef, {})
+    alert(`Adicionado${docRef.id}`)
   }
 
   async function handleSignIn(data) {
