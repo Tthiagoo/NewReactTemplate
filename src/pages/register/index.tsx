@@ -1,54 +1,20 @@
 import { Button, TextField } from '@material-ui/core'
-import {
-  addDoc,
-  collection,
-  doc,
-  QuerySnapshot,
-  updateDoc,
-  deleteDoc
-} from 'firebase/firestore'
-import React, { ChangeEvent, useEffect, useState } from 'react'
-import { db } from '../../config/firebaseClient'
-import { useCollection } from 'react-firebase-hooks/firestore'
-
-interface IUser {
-  name: 'string'
-  age: Number
-}
+import React, { ChangeEvent } from 'react'
+import { useFirebase } from '../../contexts/FirebaseContext'
 
 export default function Register() {
-  const [name, setName] = useState('')
-  const [age, setAge] = useState(0)
-  const [usersDb, setUsersDb] = useState([])
-
-  const collectionRef = collection(db, 'users')
-
-  //get
-  const [users, loading, error] = useCollection(collection(db, 'users'), {
-    snapshotListenOptions: { includeMetadataChanges: true }
-  })
-
-  const data = {
+  const {
     name,
-    age
-  }
-
-  const onSubmit = async () => {
-    const ref = await addDoc(collectionRef, data)
-    alert(`Adicionado ${ref.id}`)
-  }
-
-  const onUpdate = async (id, age) => {
-    const newField = { age: age + 1 }
-    const userDoc = doc(collectionRef, id)
-    await updateDoc(userDoc, newField)
-  }
-
-  const onDelete = async id => {
-    const userDoc = doc(collectionRef, id)
-    await deleteDoc(userDoc)
-  }
-
+    setName,
+    age,
+    setAge,
+    users,
+    loading,
+    error,
+    onUpdate,
+    onDelete,
+    onSubmit
+  } = useFirebase()
   return (
     <>
       <div>
